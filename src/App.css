@@ -1,3 +1,21 @@
+.header {
+  display: flex;
+  background: #fff !important;
+}
+
+.nav-item {
+  padding: 0 15px;
+}
+
+.nav-item.nav-item-left {
+  left: 0;
+}
+
+.nav-item.nav-item-right {
+  position: absolute;
+  right: 0;
+}
+
 .logo {
   float: left;
   width: 120px;

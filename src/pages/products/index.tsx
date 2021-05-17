@@ -5,7 +5,7 @@ import Filter from "./components/Filter";
 
 const { Sider, Content } = Layout;
 
-const Product = () => {
+const Products = () => {
   return (
     <>
       <Sider theme="light" width={270} collapsedWidth={0} trigger={null}>
@@ -18,4 +18,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Products;

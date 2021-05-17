@@ -1,8 +1,8 @@
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+
 // import { Counter } from "./pages/counter/Counter";
 import BasicLayout from "./layouts/BasicLayout";
-import Product from "./pages/products";
-import ProductView from "./pages/productView";
-import Cart from "./pages/cart";
+import { routes } from "./routes";
 
 import "./App.css";
 import "antd/dist/antd.css";
@@ -11,11 +11,17 @@ function App() {
   return (
     <>
       {/* <Counter /> */}
-      <BasicLayout>
-        <ProductView />
-        {/* <Cart />
-        <Product /> */}
-      </BasicLayout>
+      <Router>
+        <BasicLayout>
+          <Switch>
+            {routes.map((route) => (
+              <Route exact path={route.path}>
+                {route.component}
+              </Route>
+            ))}
+          </Switch>
+        </BasicLayout>
+      </Router>
     </>
   );
 }
