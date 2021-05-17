@@ -98,6 +98,50 @@ const ProductList = () => {
       >
         <ProductItem />
       </Col>
+      <Col
+        style={styles["gutter-box"]}
+        xs={24}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={8}
+        xxl={6}
+      >
+        <ProductItem />
+      </Col>
+      <Col
+        style={styles["gutter-box"]}
+        xs={24}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={8}
+        xxl={6}
+      >
+        <ProductItem />
+      </Col>
+      <Col
+        style={styles["gutter-box"]}
+        xs={24}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={8}
+        xxl={6}
+      >
+        <ProductItem />
+      </Col>
+      <Col
+        style={styles["gutter-box"]}
+        xs={24}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={8}
+        xxl={6}
+      >
+        <ProductItem />
+      </Col>
     </Row>
   );
 };
