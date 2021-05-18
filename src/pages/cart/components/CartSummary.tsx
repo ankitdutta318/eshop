@@ -4,7 +4,7 @@ import "../styles.css";
 
 const CartSummary = () => {
   return (
-    <Card title="Price Details" style={{ width: "25%" }}>
+    <Card title="Price Details">
       <span className="cart-summary-row" style={{}}>
         <Typography.Text strong>Price</Typography.Text>
         <Typography.Text strong>$80.00</Typography.Text>
