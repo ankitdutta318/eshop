@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Affix, Col, Row } from "antd";
 import CartList from "./components/CartList";
 import CartSummary from "./components/CartSummary";
 
@@ -9,7 +9,9 @@ const Cart = () => {
         <CartList />
       </Col>
       <Col xs={24} sm={24} md={24} lg={8} xl={6} xxl={6}>
-        <CartSummary />
+        <Affix>
+          <CartSummary />
+        </Affix>
       </Col>
     </Row>
   );

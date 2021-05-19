@@ -53,7 +53,12 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
       </Header>
       <Divider style={{ margin: 0 }} />
       <Content
-        style={{ padding: "0 20px", background: "#fff", minHeight: "85vh" }}
+        style={{
+          padding: "0 20px",
+          background: "#fff",
+          minHeight: "85vh",
+          paddingBottom: 50,
+        }}
       >
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>
