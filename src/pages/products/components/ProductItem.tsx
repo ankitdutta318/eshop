@@ -39,7 +39,7 @@ const ProductItem = ({ data }: { data: IProduct }) => {
               strong
               style={{ fontSize: 16 }}
             >{`$${data.price}`}</Typography.Text>
-            <Rate allowHalf disabled defaultValue={4.3} />
+            <Rate allowHalf disabled defaultValue={data.rating} />
           </div>
         }
       />

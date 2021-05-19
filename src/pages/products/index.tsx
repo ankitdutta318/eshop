@@ -16,16 +16,28 @@ const Products: React.FunctionComponent<any> = () => {
 
   useEffect(() => {
     (async () => {
-      dispatch({ type: "PRODUCTS_LOADING", payload: true });
-      try {
-        const res = await fetchProducts();
-        dispatch({ type: "FETCH_PRODUCTS", payload: res.data });
-      } catch (err) {
-        dispatch({ type: "PRODUCTS_ERROR", payload: err.message });
+      if (state.data.length === 0) {
+        dispatch({ type: "PRODUCTS_LOADING", payload: true });
+        try {
+          const res = await fetchProducts();
+          dispatch({
+            type: "FETCH_PRODUCTS",
+            payload: res.data.map((item) => ({
+              ...item,
+              rating: +(Math.random() * (0 - 5) + 5).toFixed(1),
+              createdAt: randomDate(
+                new Date(2019, 0, 1),
+                new Date()
+              ).toISOString(),
+            })),
+          });
+        } catch (err) {
+          dispatch({ type: "PRODUCTS_ERROR", payload: err.message });
+        }
+        dispatch({ type: "PRODUCTS_LOADING", payload: false });
       }
-      dispatch({ type: "PRODUCTS_LOADING", payload: false });
     })();
-  }, [dispatch]);
+  }, [dispatch, state.data.length]);
 
   // handle search
   const onSearch = (value: string) => console.log(value);
@@ -51,6 +63,12 @@ const Products: React.FunctionComponent<any> = () => {
       default:
         break;
     }
+  };
+
+  const randomDate = (start: Date, end: Date) => {
+    return new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    );
   };
 
   return (
@@ -98,6 +116,17 @@ const Products: React.FunctionComponent<any> = () => {
         placement="right"
         width={400}
         visible={filterDrawerVisible}
+        footer={
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button type="link">Clear All</Button>
+            <Button
+              type="primary"
+              onClick={() => setFilterDrawerVisible(false)}
+            >
+              Apply Filter
+            </Button>
+          </div>
+        }
         getContainer={false}
         onClose={() => setFilterDrawerVisible(false)}
       >

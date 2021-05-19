@@ -32,7 +32,7 @@ const reducer = (
     case "SORT_ASC_RATING":
       return { ...state, data: state.data.sort((a, b) => a.rating - b.rating) };
     case "SORT_DESC_RATING":
-      return { ...state, data: state.data.sort((a, b) => b.price - a.price) };
+      return { ...state, data: state.data.sort((a, b) => b.rating - a.rating) };
     default:
       return state;
   }
