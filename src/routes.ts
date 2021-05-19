@@ -5,7 +5,13 @@ import Products from "./pages/products";
 
 export const routes = [
   {
+    path: "/",
+    exact: true,
+    component: Products,
+  },
+  {
     path: "/products",
+    exact: true,
     component: Products,
   },
   {

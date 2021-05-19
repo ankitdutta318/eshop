@@ -14,10 +14,13 @@ function App() {
       <Router>
         <BasicLayout>
           <Switch>
-            {routes.map((route) => (
-              <Route exact path={route.path}>
-                {route.component}
-              </Route>
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                exact={route.exact}
+                path={route.path}
+                render={(props) => <route.component {...props} />}
+              />
             ))}
           </Switch>
         </BasicLayout>

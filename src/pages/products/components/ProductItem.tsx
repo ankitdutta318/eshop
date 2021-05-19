@@ -1,15 +1,14 @@
 import { Card, Avatar } from "antd";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { EyeOutlined, ShoppingOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
 const ProductItem = () => {
   return (
     <Card
+      size="small"
+      bordered
+      hoverable
       cover={
         <img
           alt="example"
@@ -17,9 +16,8 @@ const ProductItem = () => {
         />
       }
       actions={[
-        <SettingOutlined key="setting" />,
-        <EditOutlined key="edit" />,
-        <EllipsisOutlined key="ellipsis" />,
+        <EyeOutlined key="view" title="View" />,
+        <ShoppingOutlined key="add" title="Add to cart" />,
       ]}
     >
       <Meta

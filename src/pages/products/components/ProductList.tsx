@@ -15,8 +15,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -26,8 +26,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -37,8 +37,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -48,8 +48,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -59,8 +59,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -70,8 +70,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -81,8 +81,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -92,8 +92,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -103,8 +103,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -114,8 +114,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -125,8 +125,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />
@@ -136,8 +136,8 @@ const ProductList = () => {
         xs={24}
         sm={12}
         md={12}
-        lg={12}
-        xl={8}
+        lg={8}
+        xl={6}
         xxl={6}
       >
         <ProductItem />

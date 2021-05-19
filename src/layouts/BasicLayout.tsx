@@ -14,17 +14,18 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
   return (
     <Layout>
       <Header className="header">
+        <span>
+          <Link key="Home" to="/">
+            eShop
+          </Link>
+        </span>
         <Menu
           theme="light"
           mode="horizontal"
           defaultSelectedKeys={["home"]}
           multiple={false}
+          collapsedWidth={400}
         >
-          <Menu.Item key="home">
-            <Link key="Home" to="/">
-              eShop
-            </Link>
-          </Menu.Item>
           <Menu.Item key="products">
             <Link to="/products">Products</Link>
           </Menu.Item>
@@ -34,16 +35,19 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
           <Menu.Item key="contact">
             <Link to="/contact">Contact</Link>
           </Menu.Item>
-          <Menu.Item
-            key="cart"
-            style={{ float: "right" }}
-            icon={<ShoppingOutlined style={{ fontSize: 20 }} />}
-          >
-            <Link to="/cart" />
-          </Menu.Item>
         </Menu>
+        <span
+          key="cart"
+          style={{ position: "absolute", right: 0, paddingRight: 50 }}
+        >
+          <Link to="/cart">
+            <ShoppingOutlined
+              style={{ fontSize: 20, color: "rgba(0,0,0,0.85)" }}
+            />
+          </Link>
+        </span>
       </Header>
-      <Content style={{ padding: "0 20px" }}>
+      <Content style={{ padding: "0 20px", background: "#fff" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>
             <Link to="/">
@@ -61,9 +65,7 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
               )
           )}
         </Breadcrumb>
-        <Layout style={{ padding: "24px 0", minHeight: "80vh" }}>
-          {children}
-        </Layout>
+        {children}
       </Content>
       <Footer style={{ textAlign: "center" }}>
         eShop 2021 Created by Ankit Dutta
