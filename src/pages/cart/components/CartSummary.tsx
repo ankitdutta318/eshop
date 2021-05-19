@@ -6,16 +6,16 @@ const CartSummary = () => {
   return (
     <Card title="Price Details">
       <span className="cart-summary-row" style={{}}>
-        <Typography.Text strong>Price</Typography.Text>
-        <Typography.Text strong>$80.00</Typography.Text>
+        <Typography.Text>Price</Typography.Text>
+        <Typography.Text>$80.00</Typography.Text>
       </span>
       <span className="cart-summary-row">
-        <Typography.Text strong>Discount</Typography.Text>
-        <Typography.Text strong>- $20.00</Typography.Text>
+        <Typography.Text>Discount</Typography.Text>
+        <Typography.Text style={{ color: "green" }}>- $20.00</Typography.Text>
       </span>
       <span className="cart-summary-row">
-        <Typography.Text strong>Delivery Charges</Typography.Text>
-        <Typography.Text strong>$0.00</Typography.Text>
+        <Typography.Text>Delivery Charges</Typography.Text>
+        <Typography.Text>$0.00</Typography.Text>
       </span>
       <Divider />
       <span className="cart-summary-row">

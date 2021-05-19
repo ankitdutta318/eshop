@@ -1,7 +1,6 @@
 .header {
   display: flex;
   background: #fff !important;
-  border-bottom: 0.005em solid #aaa;
 }
 
 .nav-item {

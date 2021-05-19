@@ -1,6 +1,7 @@
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, Breadcrumb, Badge, Divider } from "antd";
 import { ShoppingOutlined, HomeOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const { Header, Footer, Content } = Layout;
 
@@ -10,20 +11,21 @@ interface IBasicLayoutProps {
 
 const BasicLayout = ({ children }: IBasicLayoutProps) => {
   const { pathname } = useLocation();
+  const [activeMenuKey, setActiveMenuKey] = useState<any>("");
 
   return (
     <Layout>
       <Header className="header">
         <span>
-          <Link key="Home" to="/">
+          <Link key="Home" to="/" onClick={() => setActiveMenuKey(undefined)}>
             eShop
           </Link>
         </span>
         <Menu
           theme="light"
           mode="horizontal"
-          defaultSelectedKeys={["home"]}
-          multiple={false}
+          selectedKeys={activeMenuKey && [`${activeMenuKey}`]}
+          onClick={({ key }) => setActiveMenuKey(key)}
           collapsedWidth={400}
         >
           <Menu.Item key="products">
@@ -40,14 +42,19 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
           key="cart"
           style={{ position: "absolute", right: 0, paddingRight: 50 }}
         >
-          <Link to="/cart">
-            <ShoppingOutlined
-              style={{ fontSize: 20, color: "rgba(0,0,0,0.85)" }}
-            />
+          <Link to="/cart" onClick={() => setActiveMenuKey(undefined)}>
+            <Badge count={1} overflowCount={9} offset={[5, 0]}>
+              <ShoppingOutlined
+                style={{ fontSize: 20, color: "rgba(0,0,0,0.85)" }}
+              />
+            </Badge>
           </Link>
         </span>
       </Header>
-      <Content style={{ padding: "0 20px", background: "#fff" }}>
+      <Divider style={{ margin: 0 }} />
+      <Content
+        style={{ padding: "0 20px", background: "#fff", minHeight: "85vh" }}
+      >
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>
             <Link to="/">
@@ -55,9 +62,9 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
             </Link>
           </Breadcrumb.Item>
           {pathname.split("/").map(
-            (item) =>
+            (item, index) =>
               item && (
-                <Breadcrumb.Item>
+                <Breadcrumb.Item key={index}>
                   <Link to={item}>
                     {`${item.charAt(0).toUpperCase()}${item.slice(1)}`}
                   </Link>
@@ -68,7 +75,7 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
         {children}
       </Content>
       <Footer style={{ textAlign: "center" }}>
-        eShop 2021 Created by Ankit Dutta
+        eShop ©2021 Created by Ankit Dutta
       </Footer>
     </Layout>
   );

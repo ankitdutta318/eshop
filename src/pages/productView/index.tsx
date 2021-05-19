@@ -1,7 +1,7 @@
-import React from "react";
+import { Modal } from "antd";
 
 const ProductView = () => {
-  return <div>This is ProductView</div>;
+  return <Modal>This is ProductView</Modal>;
 };
 
 export default ProductView;

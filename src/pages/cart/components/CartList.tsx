@@ -1,4 +1,4 @@
-import { Card, List } from "antd";
+import { Button, Card, Divider, List } from "antd";
 import { ICartItemProps } from "../types";
 import CartItem from "./CartItem";
 
@@ -19,12 +19,16 @@ const data = [
 
 const CartList = () => {
   return (
-    <Card title={null}>
+    <Card title="My Cart">
       <List
         itemLayout="horizontal"
         dataSource={data}
         renderItem={(item: ICartItemProps) => <CartItem item={item} />}
       />
+      <Divider />
+      <Button type="primary" style={{ float: "right" }}>
+        CHECKOUT
+      </Button>
     </Card>
   );
 };
