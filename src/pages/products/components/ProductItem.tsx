@@ -1,18 +1,29 @@
-import { Card, Avatar } from "antd";
+import { Card, Rate, Typography } from "antd";
 import { EyeOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { IProduct } from "../types";
 
 const { Meta } = Card;
 
-const ProductItem = () => {
+const ProductItem = ({ data }: { data: IProduct }) => {
   return (
     <Card
+      key={data.id}
       size="small"
       bordered
       hoverable
       cover={
         <img
           alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          style={{
+            minWidth: 200,
+            minHeight: 200,
+            maxWidth: 200,
+            maxHeight: 200,
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+          src={data.image}
         />
       }
       actions={[
@@ -21,11 +32,16 @@ const ProductItem = () => {
       ]}
     >
       <Meta
-        avatar={
-          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+        title={data.title}
+        description={
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography.Text
+              strong
+              style={{ fontSize: 16 }}
+            >{`$${data.price}`}</Typography.Text>
+            <Rate allowHalf disabled defaultValue={4.3} />
+          </div>
         }
-        title="Card title"
-        description="This is the description"
       />
     </Card>
   );
