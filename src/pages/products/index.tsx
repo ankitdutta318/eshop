@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Drawer, Input, Space, Select } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
+import debounce from "lodash/debounce";
 
 import { ProductsContext } from "./models";
 import ProductList from "./components/ProductList";
@@ -12,7 +13,8 @@ const { Option } = Select;
 
 const Products: React.FunctionComponent<any> = () => {
   const { state, dispatch } = useContext(ProductsContext);
-  const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
+  const [dataSource, setDataSource] = useState([]); // state for data after searching or filtering
+  const [filterDrawerVisible, setFilterDrawerVisible] = useState(false); // state for filter drawer visible
 
   useEffect(() => {
     (async () => {
@@ -39,8 +41,33 @@ const Products: React.FunctionComponent<any> = () => {
     })();
   }, [dispatch, state.data.length]);
 
+  // set data source on data fetch
+  useEffect(() => {
+    if (state.data.length) setDataSource(state.data);
+  }, [state.data]);
+
   // handle search
-  const onSearch = (value: string) => console.log(value);
+  const onSearch = (value: string): void => {
+    if (value)
+      setDataSource(
+        state.data.filter((a) =>
+          a.title.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    else setDataSource(state.data);
+  };
+
+  // handle search change
+  const handleSearchChange = (e) => {
+    const { value } = e.target;
+    if (value)
+      setDataSource(
+        state.data.filter((a) =>
+          a.title.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    else setDataSource(state.data);
+  };
 
   // handle sort change
   const handleChange = (value: string) => {
@@ -82,8 +109,9 @@ const Products: React.FunctionComponent<any> = () => {
         }}
       >
         <Search
-          placeholder="input search text"
+          placeholder="Search for products, brands and more..."
           style={{ marginRight: 10, flex: "auto", width: "auto" }}
+          onChange={debounce(handleSearchChange, 500)}
           onSearch={onSearch}
           enterButton
           allowClear
@@ -107,7 +135,7 @@ const Products: React.FunctionComponent<any> = () => {
         </Space>
       </div>
       <ProductList
-        data={state.data}
+        data={dataSource}
         categories={state.categories}
         loading={state.loading}
         error={state.error}

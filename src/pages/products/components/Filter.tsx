@@ -23,44 +23,43 @@ const Filter = () => {
   // get parms from url
   useEffect(() => {
     const params = new URLSearchParams(search);
-    console.log(params.get("category"));
   }, [search]);
 
   return (
     <Row gutter={[0, 16]}>
-      <Col>
+      <Col key="category">
         <Typography.Title level={5}>Category</Typography.Title>
         <Checkbox.Group>
           <Row gutter={[0, 6]}>
-            {state.categories.map((category) => (
-              <Col span={24}>
+            {state.categories.map((category, index) => (
+              <Col key={index} span={24}>
                 <Checkbox value={category}>{category}</Checkbox>
               </Col>
             ))}
           </Row>
         </Checkbox.Group>
       </Col>
-      <Col>
+      <Col key="rating">
         <Typography.Title level={5}>Rating</Typography.Title>
         <Checkbox.Group>
           <Row gutter={[0, 6]}>
             <Col span={24}>
-              <Checkbox value="four-plus">
+              <Checkbox key="4" value="four-plus">
                 4 <StarFilled style={{ color: "#fadb14" }} /> and above
               </Checkbox>
             </Col>
             <Col span={24}>
-              <Checkbox value="three-plus">
+              <Checkbox key="3" value="three-plus">
                 3 <StarFilled style={{ color: "#fadb14" }} /> and above
               </Checkbox>
             </Col>
             <Col span={24}>
-              <Checkbox value="two-plus">
+              <Checkbox key="2" value="two-plus">
                 2 <StarFilled style={{ color: "#fadb14" }} /> and above
               </Checkbox>
             </Col>
             <Col span={24}>
-              <Checkbox value="onw-plus">
+              <Checkbox key="1" value="onw-plus">
                 1 <StarFilled style={{ color: "#fadb14" }} /> and above
               </Checkbox>
             </Col>
