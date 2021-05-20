@@ -108,6 +108,7 @@ const Products: React.FunctionComponent<any> = () => {
       </div>
       <ProductList
         data={state.data}
+        categories={state.categories}
         loading={state.loading}
         error={state.error}
       />
@@ -116,6 +117,7 @@ const Products: React.FunctionComponent<any> = () => {
         placement="right"
         width={400}
         visible={filterDrawerVisible}
+        bodyStyle={{ overflow: "auto" }}
         footer={
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Button type="link">Clear All</Button>

@@ -4,6 +4,7 @@ import { IProductAction, IProductsState, IProductsModel } from "./types";
 
 const initialState: IProductsState = {
   data: [],
+  categories: [],
   loading: false,
   error: null,
 };
@@ -15,6 +16,8 @@ const reducer = (
   switch (action.type) {
     case "FETCH_PRODUCTS":
       return { ...state, data: action.payload };
+    case "FETCH_CATEGORIES":
+      return { ...state, categories: action.payload };
     case "PRODUCTS_LOADING":
       return { ...state, loading: action.payload };
     case "PRODUCTS_ERROR":
