@@ -1,34 +1,46 @@
+import { useState, useContext } from "react";
 import { Button, Card, Divider, List } from "antd";
-import { ICartItemProps } from "../types";
-import CartItem from "./CartItem";
 
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
+import CartItem from "./CartItem";
+import Checkout from "./Checkout";
+import { CartContext } from "../models";
+import { ICartItem } from "../types";
+import { Link } from "react-router-dom";
 
 const CartList = () => {
+  const { state, dispatch } = useContext(CartContext);
+  const [checkoutVisible, setCheckoutVisible] = useState<boolean>(false);
+
+  // handle checkout
+  const handleCheckout = () => {
+    setCheckoutVisible(true);
+    dispatch({ type: "RESET" });
+  };
+
   return (
-    <Card title="My Cart">
+    <Card title={`My Cart (${state.data.length} items)`}>
       <List
         itemLayout="horizontal"
-        dataSource={data}
-        renderItem={(item: ICartItemProps) => <CartItem item={item} />}
+        dataSource={state.data}
+        renderItem={(item: ICartItem) => <CartItem item={item} />}
       />
       <Divider />
-      <Button type="primary" style={{ float: "right" }}>
-        CHECKOUT
-      </Button>
+      {state.data.length === 0 ? (
+        <Link to="/">
+          <Button type="link" style={{ float: "right" }}>
+            Continue Shopping
+          </Button>
+        </Link>
+      ) : (
+        <Button
+          type="primary"
+          style={{ float: "right" }}
+          onClick={handleCheckout}
+        >
+          CHECKOUT
+        </Button>
+      )}
+      <Checkout visible={checkoutVisible} setVisible={setCheckoutVisible} />
     </Card>
   );
 };

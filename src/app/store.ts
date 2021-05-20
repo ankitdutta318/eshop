@@ -1,5 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { CartContext, CartProvider } from "../pages/cart/models";
 import counterReducer from "../pages/counter/counterSlice";
+import { ProductsContext, ProductsProvider } from "../pages/products/models";
 
 export const store = configureStore({
   reducer: {
@@ -15,3 +17,13 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export const Context = {
+  Products: ProductsContext,
+  Cart: CartContext,
+};
+
+export const Provider = {
+  Products: ProductsProvider,
+  Cart: CartProvider,
+};

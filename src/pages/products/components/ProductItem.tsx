@@ -1,10 +1,21 @@
-import { Card, Rate, Typography } from "antd";
-import { EyeOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { useContext } from "react";
+import { Button, Card, Rate, Typography } from "antd";
 import { IProduct } from "../types";
+import { Context } from "../../../app/store";
 
 const { Meta } = Card;
 
 const ProductItem = ({ data }: { data: IProduct }) => {
+  const { state, dispatch } = useContext(Context.Cart);
+
+  const handleAddToCart = (item: IProduct) => {
+    const { id, title, category, image, price } = item;
+    dispatch({
+      type: "ADD",
+      payload: { id, title, category, price, image, qty: 1 },
+    });
+  };
+
   return (
     <Card
       key={data.id}
@@ -27,8 +38,16 @@ const ProductItem = ({ data }: { data: IProduct }) => {
         />
       }
       actions={[
-        <EyeOutlined key="view" title="View" />,
-        <ShoppingOutlined key="add" title="Add to cart" />,
+        <Button type="link">VIEW</Button>,
+        state.data.find((item) => item.id === data.id) ? (
+          <Button type="link" style={{ color: "green" }}>
+            ADDED TO CART
+          </Button>
+        ) : (
+          <Button key="add" type="link" onClick={() => handleAddToCart(data)}>
+            ADD TO CART
+          </Button>
+        ),
       ]}
     >
       <Meta

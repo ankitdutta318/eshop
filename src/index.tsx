@@ -2,19 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 
-import { ProductsProvider } from "./pages/products/models";
+import { Provider } from "./app/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ProductsProvider>
+    <Provider.Cart>
+      <Provider.Products>
         <App />
-      </ProductsProvider>
-    </Provider>
+      </Provider.Products>
+    </Provider.Cart>
   </React.StrictMode>,
   document.getElementById("root")
 );

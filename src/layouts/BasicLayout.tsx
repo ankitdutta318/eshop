@@ -1,7 +1,9 @@
+import { useState, useContext } from "react";
 import { Layout, Menu, Breadcrumb, Badge, Divider } from "antd";
 import { ShoppingOutlined, HomeOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+
+import { Context } from "../app/store";
 
 const { Header, Footer, Content } = Layout;
 
@@ -10,6 +12,7 @@ interface IBasicLayoutProps {
 }
 
 const BasicLayout = ({ children }: IBasicLayoutProps) => {
+  const { state } = useContext(Context.Cart);
   const { pathname } = useLocation();
   const [activeMenuKey, setActiveMenuKey] = useState<any>("");
 
@@ -43,7 +46,7 @@ const BasicLayout = ({ children }: IBasicLayoutProps) => {
           style={{ position: "absolute", right: 0, paddingRight: 50 }}
         >
           <Link to="/cart" onClick={() => setActiveMenuKey(undefined)}>
-            <Badge count={1} overflowCount={9} offset={[5, 0]}>
+            <Badge count={state.data.length} overflowCount={9} offset={[5, 0]}>
               <ShoppingOutlined
                 style={{ fontSize: 20, color: "rgba(0,0,0,0.85)" }}
               />
