@@ -1,14 +1,19 @@
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Checkbox, Col, Row, Typography } from "antd";
 import { StarFilled } from "@ant-design/icons";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { ProductsContext } from "../models";
 import { fetchCategories } from "../services";
-import { useLocation } from "react-router";
+import { CheckboxValueType } from "antd/lib/checkbox/Group";
 
 const Filter = () => {
   const { state, dispatch } = useContext(ProductsContext);
+  const history = useHistory();
   const { search } = useLocation();
+
+  const [categoryValues, setCategoryValues] = useState<CheckboxValueType[]>([]); // category values filter state
+  const [ratingValues, setRatingValues] = useState<CheckboxValueType[]>([]); // rating values filter state
 
   useEffect(() => {
     if (state.categories.length === 0)
@@ -20,16 +25,41 @@ const Filter = () => {
       })();
   }, [dispatch, state.categories.length]);
 
-  // get parms from url
+  // on load set state from query params
   useEffect(() => {
-    const params = new URLSearchParams(search);
-  }, [search]);
+    const query = new URLSearchParams(search);
+    if (query.has("category"))
+      setCategoryValues(query.get("category").split(","));
+    if (query.has("rating")) setRatingValues(query.get("rating").split(","));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    // caterory change
+    if (categoryValues.length) {
+      params.append("category", categoryValues.join());
+    } else {
+      params.delete("category");
+    }
+
+    // rating change
+    if (ratingValues.length) {
+      params.append("rating", ratingValues.join());
+    } else {
+      params.delete("rating");
+    }
+    history.push({ search: params.toString() });
+  }, [categoryValues, ratingValues, history]);
 
   return (
     <Row gutter={[0, 16]}>
       <Col key="category">
         <Typography.Title level={5}>Category</Typography.Title>
-        <Checkbox.Group>
+        <Checkbox.Group
+          value={categoryValues}
+          onChange={(values) => setCategoryValues(values)}
+        >
           <Row gutter={[0, 6]}>
             {state.categories.map((category, index) => (
               <Col key={index} span={24}>
@@ -41,7 +71,10 @@ const Filter = () => {
       </Col>
       <Col key="rating">
         <Typography.Title level={5}>Rating</Typography.Title>
-        <Checkbox.Group>
+        <Checkbox.Group
+          value={ratingValues}
+          onChange={(values) => setRatingValues(values)}
+        >
           <Row gutter={[0, 6]}>
             <Col span={24}>
               <Checkbox key="4" value="four-plus">

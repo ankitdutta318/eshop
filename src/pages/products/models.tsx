@@ -22,20 +22,6 @@ const reducer = (
       return { ...state, loading: action.payload };
     case "PRODUCTS_ERROR":
       return { ...state, error: action.payload };
-    case "SORT_NEWEST":
-      return {
-        ...state,
-        data: state.data.sort((a, b) => b.createdAt - a.createdAt),
-      };
-    case "SORT_ASC_PRICE":
-      return { ...state, data: state.data.sort((a, b) => a.price - b.price) };
-    case "SORT_DESC_PRICE":
-      return { ...state, data: state.data.sort((a, b) => b.price - a.price) };
-
-    case "SORT_ASC_RATING":
-      return { ...state, data: state.data.sort((a, b) => a.rating - b.rating) };
-    case "SORT_DESC_RATING":
-      return { ...state, data: state.data.sort((a, b) => b.rating - a.rating) };
     default:
       return state;
   }

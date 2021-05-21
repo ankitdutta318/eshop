@@ -2,12 +2,7 @@ export type IProductAction =
   | { type: "FETCH_PRODUCTS"; payload: IProduct[] }
   | { type: "FETCH_CATEGORIES"; payload: any[] }
   | { type: "PRODUCTS_LOADING"; payload: boolean }
-  | { type: "PRODUCTS_ERROR"; payload: string }
-  | { type: "SORT_NEWEST" }
-  | { type: "SORT_ASC_PRICE" }
-  | { type: "SORT_DESC_PRICE" }
-  | { type: "SORT_ASC_RATING" }
-  | { type: "SORT_DESC_RATING" };
+  | { type: "PRODUCTS_ERROR"; payload: string };
 
 interface IProduct {
   id: number;
