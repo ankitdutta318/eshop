@@ -9,7 +9,12 @@ const Checkout = ({
   setVisible: (visble: boolean) => void;
 }) => {
   return (
-    <Modal visible={visible} onCancel={() => setVisible(false)} footer={null}>
+    <Modal
+      visible={visible}
+      onCancel={() => setVisible(false)}
+      footer={null}
+      closable={false}
+    >
       <Result
         status="success"
         title="Order placed successfully!"

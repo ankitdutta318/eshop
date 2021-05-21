@@ -26,6 +26,7 @@ const Products: React.FunctionComponent<any> = () => {
         dispatch({ type: "PRODUCTS_LOADING", payload: true });
         try {
           const res = await fetchProducts();
+          setDataSource(res.data);
           dispatch({
             type: "FETCH_PRODUCTS",
             payload: res.data.map((item) => ({
@@ -45,26 +46,15 @@ const Products: React.FunctionComponent<any> = () => {
     })();
   }, [dispatch, state.data.length]);
 
-  // set data source on data fetch
-  useEffect(() => {
-    if (state.data.length) setDataSource(state.data);
-  }, [state.data]);
-
   // get filter parms from url
   useEffect(() => {
-    if (search && state.data.length > 0) {
+    if (search) {
       const params = new URLSearchParams(search);
       let ctr = 0;
       params.forEach((value, key) => handleFilterChange(key, value, ++ctr));
-    } else setDataSource(state.data);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, state.data]);
-
-  // whenever dataSource changes call handleSort
-  useEffect(() => {
-    handleSortChange(sortValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataSource.length]);
 
   // handle filter change
   const handleFilterChange = (key: string, value: string, ctr: number) => {
@@ -105,7 +95,6 @@ const Products: React.FunctionComponent<any> = () => {
       }
     });
     setDataSource(filteredData);
-    // handleSortChange(sortValue);
   };
 
   // handle search
@@ -133,6 +122,7 @@ const Products: React.FunctionComponent<any> = () => {
 
   // handle sort change
   const handleSortChange = (value: string) => {
+    console.log("sorting...");
     setSortValue(value);
     const dataToSort = [...dataSource];
     switch (value) {

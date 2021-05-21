@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { List, InputNumber, Button } from "antd";
+import { List, InputNumber, Button, Typography, Space } from "antd";
 import { Link } from "react-router-dom";
 
 import { CartContext } from "../models";
@@ -39,8 +39,37 @@ const CartItem = ({ item }: { item: ICartItem }) => {
         }
       >
         <List.Item.Meta
-          title={<Link to={`/products/${item.id}`}>{item.title}</Link>}
-          description={item.category}
+          title={
+            <Space>
+              <img
+                src={item.image}
+                alt={item.title}
+                style={{
+                  minWidth: 60,
+                  minHeight: 60,
+                  maxWidth: 140,
+                  maxHeight: 80,
+                  objectFit: "fill",
+                  marginRight: 10,
+                }}
+              />
+              <Space direction="vertical">
+                <Link to={`/products/${item.id}`}>
+                  <Typography.Title
+                    level={5}
+                    style={{ paddingBottom: 0, marginBottom: -10 }}
+                  >
+                    {item.title}
+                  </Typography.Title>
+                </Link>
+                <Typography.Text type="secondary">
+                  {item.category}
+                </Typography.Text>
+                <Typography.Text strong>$ {item.price}</Typography.Text>
+              </Space>
+            </Space>
+          }
+          description={<></>}
         />
       </List.Item>
     </>
