@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Button, Drawer, Input, Space, Select } from "antd";
+import { Button, Input, Space, Select } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import debounce from "lodash/debounce";
 
@@ -7,7 +7,7 @@ import { ProductsContext } from "./models";
 import ProductList from "./components/ProductList";
 import Filter from "./components/Filter";
 import { fetchProducts } from "./services";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -15,6 +15,7 @@ const { Option } = Select;
 const Products: React.FunctionComponent<any> = () => {
   const { state, dispatch } = useContext(ProductsContext);
   const { search } = useLocation();
+  const history = useHistory();
 
   const [dataSource, setDataSource] = useState([]); // state for data after searching or filtering
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false); // state for filter drawer visible
@@ -42,9 +43,11 @@ const Products: React.FunctionComponent<any> = () => {
           dispatch({ type: "PRODUCTS_ERROR", payload: err.message });
         }
         dispatch({ type: "PRODUCTS_LOADING", payload: false });
+      } else {
+        setDataSource(state.data);
       }
     })();
-  }, [dispatch, state.data.length]);
+  }, [dispatch, state.data]);
 
   // get filter parms from url
   useEffect(() => {
@@ -78,16 +81,16 @@ const Products: React.FunctionComponent<any> = () => {
           item[key].includes(`women's clothing`):
           filteredData.push(item);
           break;
-        case value.includes("four-plus") && item[key] > 4:
+        case value.includes("four-plus") && item[key] >= 4:
           filteredData.push(item);
           break;
-        case value.includes("three-plus") && item[key] > 3:
+        case value.includes("three-plus") && item[key] >= 3:
           filteredData.push(item);
           break;
-        case value.includes("two-plus") && item[key] > 2:
+        case value.includes("two-plus") && item[key] >= 2:
           filteredData.push(item);
           break;
-        case value.includes("one-plus") && item[key] > 1:
+        case value.includes("one-plus") && item[key] >= 1:
           filteredData.push(item);
           break;
         default:
@@ -146,6 +149,18 @@ const Products: React.FunctionComponent<any> = () => {
     }
   };
 
+  // handle clear all filters
+  const handleClearAllFilters = () => {
+    const params = new URLSearchParams();
+    params.delete("category");
+    params.delete("rating");
+    history.push({ search: params.toString() });
+    setDataSource(state.data);
+    setFilterDrawerVisible(false);
+  };
+
+  const handleVisibleChange = (value: boolean) => setFilterDrawerVisible(value);
+
   const randomDate = (start: Date, end: Date) => {
     return new Date(
       start.getTime() + Math.random() * (end.getTime() - start.getTime())
@@ -194,28 +209,11 @@ const Products: React.FunctionComponent<any> = () => {
         loading={state.loading}
         error={state.error}
       />
-      <Drawer
-        title="Filter"
-        placement="right"
-        width={400}
+      <Filter
         visible={filterDrawerVisible}
-        bodyStyle={{ overflow: "auto" }}
-        footer={
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button type="link">Clear All</Button>
-            <Button
-              type="primary"
-              onClick={() => setFilterDrawerVisible(false)}
-            >
-              Apply Filter
-            </Button>
-          </div>
-        }
-        getContainer={false}
-        onClose={() => setFilterDrawerVisible(false)}
-      >
-        <Filter />
-      </Drawer>
+        setVisible={handleVisibleChange}
+        handleClearAllFilters={handleClearAllFilters}
+      />
     </>
   );
 };
